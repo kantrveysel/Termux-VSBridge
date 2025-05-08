@@ -2,9 +2,8 @@
 
 **Termux-VSBridge** is a lightweight toolchain that lets you run **Python**, **C++**, **Java**, and **Rust** projects directly on your Android device via **Termux**, using **Visual Studio Code** as your primary IDE. It leverages **SSH**, **Paramiko**, and VS Code's **Tasks API** to provide a seamless remote development experience with minimal setup.
 
-<p align="center">
-  <img src="https://i.ibb.co/Ldd92r5d/Termux-VSBridge.gif" alt="Termux-VSBridge Demo" width="600"/>
-</p>
+[![Image](https://i.hizliresim.com/oar7wpr.gif)](https://hizliresim.com/oar7wpr)
+
 
 ---
 
