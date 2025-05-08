@@ -3,6 +3,7 @@ from runners.python_runner import PythonRunner
 from runners.cpp_runner import CppRunner
 from runners.java_runner import JavaRunner
 from runners.rust_runner import RustRunner
+from runners.node_runner import NodeRunner
 
 class Toolchain:
     """Toolchain Manager"""
@@ -20,6 +21,7 @@ class Toolchain:
     def run(self, mode, local_file):
         """Choses Runner And Activates"""
         runners = {
+            "-node": NodeRunner,
             "-python": PythonRunner,
             "-cpp": CppRunner,
             "-java": JavaRunner,
