@@ -1,6 +1,6 @@
 # Termux-VSBridge
 
-**Termux-VSBridge** is a lightweight toolchain that lets you run **Python**, **C++**, **Java**, and **Rust** projects directly on your Android device via **[Termux](https://github.com/termux)**, using **Visual Studio Code** as your primary IDE. It leverages **SSH**, **Paramiko**, and VS Code's **Tasks API** to provide a seamless remote development experience with minimal setup.
+**Termux-VSBridge** is a lightweight toolchain that lets you run **Python**, **C++**, **Java**, **Rust**, **NodeJS** projects directly on your Android device via **[Termux](https://github.com/termux)**, using **Visual Studio Code** as your primary IDE. It leverages **SSH**, **Paramiko**, and VS Code's **Tasks API** to provide a seamless remote development experience with minimal setup.
 
 [![Image](https://i.hizliresim.com/oar7wpr.gif)](https://hizliresim.com/oar7wpr)
 
@@ -100,6 +100,10 @@ Alternatively, use the command line:
   ```bash
   python remote_toolchain/run.py -rust test_project/test.rs
   ```
+- **NodeJS**:
+  ```bash
+  python remote_toolchain/run.py -node test_node/test.js
+  ```
 
 ---
 
@@ -118,6 +122,7 @@ Termux-VSBridge/
 │   ├── test_python/
 │   ├── test_java/
 │   ├── test_rust/
+│   ├── test_node/
 ├── .vscode/
 │   ├── tasks.json
 ├── README.md
@@ -139,6 +144,10 @@ Termux-VSBridge/
 ## 🤝 Contributing
 
 Contributions are welcome! Please check [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
+
+<a href="https://github.com/kantrveysel/Termux-VSBridge/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kantrveysel/Termux-VSBridge" />
+</a>
 
 ---
 
