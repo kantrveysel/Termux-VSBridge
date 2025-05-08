@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Python on Termux",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "remote_toolchain/run.py",
+        "-python",
+        "${file}"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Run C++ on Termux",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "remote_toolchain/run.py",
+        "-cpp",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run Java on Termux",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "remote_toolchain/run.py",
+        "-java",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "java",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "message": 4
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run Rust on Termux",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "remote_toolchain/run.py",
+        "-rust",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "rust",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    }
+  ]
+}
