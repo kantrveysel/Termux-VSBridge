@@ -2,6 +2,18 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Run Node.js on Termux",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "remote_toolchain/run.py",
+        "-node",
+        "${file}"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
       "label": "Run Python on Termux",
       "type": "shell",
       "command": "python",
