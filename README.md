@@ -32,7 +32,7 @@
    - Install Termux from [F-Droid](https://f-droid.org/packages/com.termux/) or the Play Store.
    - Install necessary packages:
      ```bash
-     pkg install openssh python clang make cmake openjdk-17 rust
+     pkg install openssh
      ```
    - Start the SSH server and note your username and port (default: 8022):
      ```bash
