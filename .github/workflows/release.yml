@@ -22,8 +22,7 @@ jobs:
             executable: termux_vsbridge.exe
             tasks: tasks-windows.json
             path_separator: \\
-            archive_cmd: |
-              Compress-Archive -Path dist\.vscode,dist\project_file -DestinationPath dist\termux_vsbridge-windows.zip
+            archive_cmd: powershell -Command "Compress-Archive -Path dist\\.vscode,dist\\project_file -DestinationPath dist\\termux_vsbridge-windows.zip"
             artifact_name: vsbridge-windows
           - os: ubuntu-latest
             executable: termux_vsbridge
@@ -49,12 +48,15 @@ jobs:
 
       - name: Install PyInstaller
         run: pip install pyinstaller
+        shell: bash
 
       - name: Install Requirements
         run: pip install -r requirements.txt
+        shell: bash
 
       - name: Build Executable with PyInstaller
         run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge${{ matrix.path_separator }}run.py
+        shell: bash
 
       - name: Prepare VSCode Folder
         run: |
@@ -66,7 +68,7 @@ jobs:
 
       - name: Build ZIP Archive
         run: ${{ matrix.archive_cmd }}
-        shell: ${{ matrix.os == 'windows-latest' && 'powershell' || 'bash' }}
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
