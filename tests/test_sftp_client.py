@@ -11,7 +11,7 @@ def set_environment():
         pytest.skip("Missing environment variables: " + ", ".join(required_env_vars))
 
     host = os.environ["HOST"]
-    port = int(os.environ["PORT"])
+    port = os.environ["PORT"]
     username = os.environ["USERNAME"]
     password = os.environ["PASSWORD"]
 
