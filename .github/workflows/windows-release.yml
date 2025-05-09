@@ -33,8 +33,8 @@ jobs:
       - name: Prepare VSCode Folder
         run: |
           mkdir dist\.vscode
-          move dist\termux_vsbridge.exe dist\.vscode\termux_vsbridge.exe
-          copy /y vscode-tasks\tasks-windows.json dist\.vscode\tasks.json
+          Move-Item dist\termux_vsbridge.exe dist\.vscode\termux_vsbridge.exe
+          Copy-Item vscode-tasks\tasks-windows.json dist\.vscode\tasks.json
 
       - name: Build ZIP Archive
         run: tar -a -c -f dist\termux_vsbridge.zip -C dist .vscode
