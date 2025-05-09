@@ -1,4 +1,4 @@
-name: Windows Build
+name: Linux Build
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
@@ -31,22 +31,22 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build EXE with PyInstaller
-        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge\run.py
+        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge/run.py
 
       - name: Prepare VSCode Folder
         run: |
-          mkdir dist\.vscode
-          mkdir dist\project_file
-          Move-Item dist\termux_vsbridge.exe dist\.vscode\termux_vsbridge.exe
-          Copy-Item vscode-tasks\tasks-windows.json dist\.vscode\tasks.json
+          mkdir dist/.vscode
+          mkdir dist/project_file
+          mv dist/termux_vsbridge dist/.vscode/termux_vsbridge
+          cp vscode-tasks/tasks-linux.json dist/.vscode/tasks.json
 
       - name: Build ZIP Archive
-        run: tar -a -c -f dist\termux_vsbridge.zip -C dist .vscode
+        run: zip -r dist/termux_vsbridge.zip dist/.vscode
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: vsbridge-windows
+          name: vsbridge-linux
           path: dist/termux_vsbridge.zip
 
       - name: Check if tag exists
@@ -61,7 +61,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.release_version }}
-          name: Termux VSBridge - Windows ${{ github.event.inputs.release_version }}
+          name: Termux VSBridge - Linux ${{ github.event.inputs.release_version }}
           files: dist/termux_vsbridge.zip
           fail_on_unmatched_files: true
         env:

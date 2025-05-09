@@ -1,0 +1,20 @@
+name: Release All Platforms
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version'
+        required: true
+        default: 'v*'
+
+jobs:
+  windows-release:
+    uses: ./.github/workflows/windows-release.yml
+    with:
+      release_version: ${{ github.event.inputs.release_version }}
+
+  linux-release:
+    uses: ./.github/workflows/linux-release.yml
+    with:
+      release_version: ${{ github.event.inputs.release_version }}
