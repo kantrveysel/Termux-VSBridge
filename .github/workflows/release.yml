@@ -21,8 +21,9 @@ jobs:
           - os: windows-latest
             executable: termux_vsbridge.exe
             tasks: tasks-windows.json
-            path_separator: \\ 
-            archive_cmd: zip -r dist/termux_vsbridge-windows.zip dist/.vscode dist/project_file
+            path_separator: \\
+            archive_cmd: |
+              Compress-Archive -Path dist\.vscode,dist\project_file -DestinationPath dist\termux_vsbridge-windows.zip
             artifact_name: vsbridge-windows
           - os: ubuntu-latest
             executable: termux_vsbridge
@@ -57,15 +58,15 @@ jobs:
 
       - name: Prepare VSCode Folder
         run: |
-          mkdir dist/.vscode
-          mkdir dist/project_file
+          mkdir -p dist/.vscode
+          mkdir -p dist/project_file
           mv dist/${{ matrix.executable }} dist/.vscode/${{ matrix.executable }}
           cp vscode-tasks/${{ matrix.tasks }} dist/.vscode/tasks.json
         shell: bash
 
       - name: Build ZIP Archive
         run: ${{ matrix.archive_cmd }}
-        shell: bash
+        shell: ${{ matrix.os == 'windows-latest' && 'powershell' || 'bash' }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -99,9 +100,9 @@ jobs:
           tag_name: ${{ github.event.inputs.release_version }}
           name: Termux VSBridge ${{ github.event.inputs.release_version }}
           files: |
-            artifacts/termux_vsbridge-windows.zip
-            artifacts/termux_vsbridge-linux.zip
-            artifacts/termux_vsbridge-macos.zip
+            artifacts/vsbridge-windows/termux_vsbridge-windows.zip
+            artifacts/vsbridge-linux/termux_vsbridge-linux.zip
+            artifacts/vsbridge-macos/termux_vsbridge-macos.zip
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
