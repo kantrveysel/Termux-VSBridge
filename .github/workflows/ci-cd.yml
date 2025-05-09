@@ -35,9 +35,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run tests
+    - name: SSH Client Test
       run: |
-        pytest tests/ --maxfail=3 --disable-warnings -q 
+        pytest tests/test_ssh_client.py --maxfail=3 --disable-warnings -q
+
+    - name: SFTP Client Test
+      run: |
+        pytest tests/test_sftp_client.py --maxfail=3 --disable-warnings -q
 
     - name: View test results
       run: |
