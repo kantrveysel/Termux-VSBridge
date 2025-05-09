@@ -14,6 +14,7 @@ permissions:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -21,31 +22,31 @@ jobs:
           - os: windows-latest
             executable: termux_vsbridge.exe
             tasks: tasks-windows.json
-            path_separator: \\
+            path_separator: "\\"
             zip_name: termux_vsbridge-windows.zip
-            archive_cmd: powershell -Command "Compress-Archive -Path dist\\.vscode,dist\\project_file -DestinationPath dist\\$ZIP_NAME"
+            archive_shell: powershell
+            archive_cmd: |
+              Compress-Archive -Path dist\\.vscode,dist\\project_file `
+                               -DestinationPath dist\\${{ matrix.zip_name }}
             artifact_name: vsbridge-windows
           - os: ubuntu-latest
             executable: termux_vsbridge
             tasks: tasks-linux.json
-            path_separator: /
+            path_separator: "/"
             zip_name: termux_vsbridge-linux.zip
-            archive_cmd: zip -r dist/$ZIP_NAME dist/.vscode dist/project_file
+            archive_shell: bash
+            archive_cmd: |
+              zip -r "dist/${{ matrix.zip_name }}" dist/.vscode dist/project_file
             artifact_name: vsbridge-linux
           - os: macos-latest
             executable: termux_vsbridge
             tasks: tasks-macos.json
-            path_separator: /
+            path_separator: "/"
             zip_name: termux_vsbridge-macos.zip
-            archive_cmd: zip -r dist/$ZIP_NAME dist/.vscode dist/project_file
+            archive_shell: bash
+            archive_cmd: |
+              zip -r "dist/${{ matrix.zip_name }}" dist/.vscode dist/project_file
             artifact_name: vsbridge-macos
-
-    env:
-      EXECUTABLE: ${{ matrix.executable }}
-      TASKS: ${{ matrix.tasks }}
-      PATH_SEPARATOR: ${{ matrix.path_separator }}
-      ZIP_NAME: ${{ matrix.zip_name }}
-      ARTIFACT_NAME: ${{ matrix.artifact_name }}
 
     steps:
       - name: Checkout repo
@@ -56,39 +57,39 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install PyInstaller
-        run: pip install pyinstaller
-        shell: bash
-
-      - name: Install Requirements
-        run: pip install -r requirements.txt
+      - name: Install PyInstaller & Requirements
+        run: |
+          pip install pyinstaller
+          pip install -r requirements.txt
         shell: bash
 
       - name: Build Executable with PyInstaller
-        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge$PATH_SEPARATORrun.py
+        run: |
+          pyinstaller --onefile --name=termux_vsbridge "termux_vsbridge${{ matrix.path_separator }}run.py"
         shell: bash
 
       - name: Prepare VSCode Folder
         run: |
           mkdir -p dist/.vscode
           mkdir -p dist/project_file
-          mv dist/$EXECUTABLE dist/.vscode/$EXECUTABLE
-          cp vscode-tasks/$TASKS dist/.vscode/tasks.json
+          mv "dist/${{ matrix.executable }}" "dist/.vscode/${{ matrix.executable }}"
+          cp "vscode-tasks/${{ matrix.tasks }}" "dist/.vscode/tasks.json"
         shell: bash
 
       - name: Build ZIP Archive
         run: ${{ matrix.archive_cmd }}
-        shell: bash
+        shell: ${{ matrix.archive_shell }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: $ARTIFACT_NAME
-          path: dist/$ZIP_NAME
+          name: ${{ matrix.artifact_name }}
+          path: "dist/${{ matrix.zip_name }}"
 
   release:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -114,11 +115,11 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.release_version }}
-          name: Termux VSBridge ${{ github.event.inputs.release_version }}
+          name: "Termux VSBridge ${{ github.event.inputs.release_version }}"
           files: |
-            artifacts/vsbridge-windows/termux_vsbridge-windows.zip
-            artifacts/vsbridge-linux/termux_vsbridge-linux.zip
-            artifacts/vsbridge-macos/termux_vsbridge-macos.zip
+            artifacts/vsbridge-windows/${{ needs.build.outputs.zip_name }}
+            artifacts/vsbridge-linux/${{ needs.build.outputs.zip_name }}
+            artifacts/vsbridge-macos/${{ needs.build.outputs.zip_name }}
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
