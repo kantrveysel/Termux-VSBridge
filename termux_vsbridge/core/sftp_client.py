@@ -12,6 +12,15 @@ class SFTPClient:
         self.transport = None
         self.sftp = None
 
+    def _ensure_connected(self):
+        """Ensure the SFTP connection is active, reconnect if necessary."""
+        if not self.transport or not self.sftp:
+            self.connect()
+        try:
+            self.sftp.listdir(".")  # Test connection
+        except (paramiko.SSHException, OSError):
+            self.connect()
+
     def connect(self):
         """Starts SFTP"""
         self.transport = paramiko.Transport((self.host, self.port))
@@ -55,6 +64,28 @@ class SFTPClient:
         self.mkdir(remote_dir)
         self.create_file_structure(local_dir, remote_dir)
         self.close()
+
+    def delete_file(self, remote_path):
+        """Deletes a file on the remote server"""
+        try:
+            self.sftp.remove(remote_path)
+            print(f"Deleted file: {remote_path}")
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File not found: {remote_path}")
+        except Exception as e:
+            raise Exception(f"Error deleting file {remote_path}: {str(e)}")
+
+    def delete_directory(self, remote_path):
+        """Deletes an empty directory on the remote server"""
+        try:
+            self.sftp.rmdir(remote_path)
+            print(f"Deleted directory: {remote_path}")
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Directory not found: {remote_path}")
+        except OSError:
+            raise OSError(f"Directory is not empty: {remote_path}")
+        except Exception as e:
+            raise Exception(f"Error deleting directory {remote_path}: {str(e)}")
 
     def close(self):
         """Cloeses SFTP Connection"""

@@ -30,7 +30,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "remote_toolchain/run.py",
+        "termux_vsbridge/run.py",
         "-cpp",
         "${file}"
       ],
@@ -53,7 +53,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "remote_toolchain/run.py",
+        "termux_vsbridge/run.py",
         "-java",
         "${file}"
       ],
@@ -75,7 +75,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "remote_toolchain/run.py",
+        "termux_vsbridge/run.py",
         "-rust",
         "${file}"
       ],

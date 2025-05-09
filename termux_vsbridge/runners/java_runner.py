@@ -1,7 +1,7 @@
-from . import SSHClient, SFTPClient
+from . import SSHClient, SFTPClient, os
 
 class JavaRunner:
-    """Java dosyalarını uzak sunucuda derler ve çalıştırır."""
+    """Java Runner"""
     def __init__(self, config_manager):
         self.config_manager = config_manager
         self.ssh_client = SSHClient(
@@ -18,7 +18,7 @@ class JavaRunner:
         )
 
     def run(self, local_file, remote_path):
-        """Java dosyasını derler ve çalıştırır."""
+        """Java Compiler &  Runner"""
         self.sftp_client.push(local_file, remote_path)
         remote_dir = os.path.dirname(remote_path).replace('\\', '/')
         class_name = os.path.splitext(os.path.basename(remote_path))[0]

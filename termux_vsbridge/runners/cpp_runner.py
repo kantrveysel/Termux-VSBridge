@@ -1,4 +1,4 @@
-from . import SSHClient, SFTPClient
+from . import SSHClient, SFTPClient, os
 from pathlib import Path
 
 class CppRunner:
