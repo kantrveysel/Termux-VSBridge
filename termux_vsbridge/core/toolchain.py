@@ -1,9 +1,14 @@
+import sys
 from pathlib import Path
-from runners.python_runner import PythonRunner
-from runners.cpp_runner import CppRunner
-from runners.java_runner import JavaRunner
-from runners.rust_runner import RustRunner
-from runners.node_runner import NodeRunner
+
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from termux_vsbridge.runners.python_runner import PythonRunner
+from termux_vsbridge.runners.cpp_runner import CppRunner
+from termux_vsbridge.runners.java_runner import JavaRunner
+from termux_vsbridge.runners.rust_runner import RustRunner
+from termux_vsbridge.runners.node_runner import NodeRunner
 
 class Toolchain:
     """Toolchain Manager"""

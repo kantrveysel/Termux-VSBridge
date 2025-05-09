@@ -5,6 +5,6 @@ print("Started")
 print("Module Example")
 testing(10)
 
-for i in range(-5,5):
+for i in range(-5,0):
     print(i)
     sleep(1)

@@ -1,9 +1,13 @@
 import sys
 import dotenv
 import os
+from pathlib import Path
 
-from core.config_manager import ConfigManager
-from core.toolchain import Toolchain
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from termux_vsbridge.core.config_manager import ConfigManager
+from termux_vsbridge.core.toolchain import Toolchain
 
 dotenv.load_dotenv(".env")
 

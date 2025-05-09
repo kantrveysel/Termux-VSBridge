@@ -2,6 +2,8 @@ import json
 import subprocess
 from pathlib import Path
 import os
+import sys
+
 
 DUMMY_CONFIG = {
     "host": "localhost",
@@ -44,7 +46,7 @@ class ConfigManager:
             subprocess.run(['start', 'code', str(self.config_path)], shell=True)
         except:
             print("VSCode not installed or not in the path -> You need to edit config.json")
-        exit(1)
+        sys.exit(1)
 
     def _load_config(self):
         """Loads Configuration from config.json"""

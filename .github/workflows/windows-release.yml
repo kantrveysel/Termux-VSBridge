@@ -1,0 +1,46 @@
+name: Windows Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version'
+        required: true
+        default: 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Build EXE with PyInstaller
+        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge\run.py
+
+      - name: Prepare VSCode Folder
+        run: |
+          mkdir dist\.vscode
+          move dist\termux_vsbridge.exe dist\.vscode\termux_vsbridge.exe
+          copy /y vscode-tasks\tasks-windows.json dist\.vscode\tasks.json
+
+      - name: Build ZIP Archive
+        run: tar -a -c -f dist\termux_vsbridge.zip -C dist .vscode
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vsbridge-windows
+          path: dist/termux_vsbridge.zip

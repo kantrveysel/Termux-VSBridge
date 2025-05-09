@@ -1,0 +1,114 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Node.js on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-node",
+        "${file}"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Run Python on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-python",
+        "${file}"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Run C++ on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-cpp",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run Java on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-java",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "java",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "message": 4
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run Rust on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-rust",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "rust",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run Node.js on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-node",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "node",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    }
+  ]
+}
