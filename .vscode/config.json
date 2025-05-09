@@ -1,0 +1,7 @@
+{
+    "host": "192.168.1.31",
+    "port": 8022,
+    "username": "u0_a123",
+    "password": "123123",
+    "remote_dir": "/data/data/com.termux/files/home/tmp/"
+}

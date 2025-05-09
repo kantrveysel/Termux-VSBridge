@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "remote_toolchain/run.py",
+        "termux-vsbridge/run.py",
         "-node",
         "${file}"
       ],
@@ -18,7 +18,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "remote_toolchain/run.py",
+        "termux-vsbridge/run.py",
         "-python",
         "${file}"
       ],
