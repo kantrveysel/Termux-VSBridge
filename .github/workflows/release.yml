@@ -21,8 +21,8 @@ jobs:
           - os: windows-latest
             executable: termux_vsbridge.exe
             tasks: tasks-windows.json
-            path_separator: \\
-            archive_cmd: tar -a -c -f dist\termux_vsbridge-windows.zip -C dist .vscode project_file
+            path_separator: \\ 
+            archive_cmd: zip -r dist/termux_vsbridge-windows.zip dist/.vscode dist/project_file
             artifact_name: vsbridge-windows
           - os: ubuntu-latest
             executable: termux_vsbridge
@@ -99,9 +99,9 @@ jobs:
           tag_name: ${{ github.event.inputs.release_version }}
           name: Termux VSBridge ${{ github.event.inputs.release_version }}
           files: |
-            artifacts/vsbridge-windows/termux_vsbridge-windows.zip
-            artifacts/vsbridge-linux/termux_vsbridge-linux.zip
-            artifacts/vsbridge-macos/termux_vsbridge-macos.zip
+            artifacts/termux_vsbridge-windows.zip
+            artifacts/termux_vsbridge-linux.zip
+            artifacts/termux_vsbridge-macos.zip
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
