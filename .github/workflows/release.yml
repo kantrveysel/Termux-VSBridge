@@ -1,4 +1,4 @@
-name: Release All Platforms
+name: Multi-Platform Release
 
 on:
   workflow_dispatch:
@@ -8,13 +8,100 @@ on:
         required: true
         default: 'v*'
 
-jobs:
-  windows-release:
-    uses: ./.github/workflows/windows-release.yml
-    with:
-      release_version: ${{ github.event.inputs.release_version }}
+permissions:
+  contents: write
 
-  linux-release:
-    uses: ./.github/workflows/linux-release.yml
-    with:
-      release_version: ${{ github.event.inputs.release_version }}
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        include:
+          - os: windows-latest
+            executable: termux_vsbridge.exe
+            tasks: tasks-windows.json
+            path_separator: \\
+            archive_cmd: tar -a -c -f dist\termux_vsbridge-windows.zip -C dist .vscode project_file
+            artifact_name: vsbridge-windows
+          - os: ubuntu-latest
+            executable: termux_vsbridge
+            tasks: tasks-linux.json
+            path_separator: /
+            archive_cmd: zip -r dist/termux_vsbridge-linux.zip dist/.vscode dist/project_file
+            artifact_name: vsbridge-linux
+          - os: macos-latest
+            executable: termux_vsbridge
+            tasks: tasks-macos.json
+            path_separator: /
+            archive_cmd: zip -r dist/termux_vsbridge-macos.zip dist/.vscode dist/project_file
+            artifact_name: vsbridge-macos
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Build Executable with PyInstaller
+        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge${{ matrix.path_separator }}run.py
+
+      - name: Prepare VSCode Folder
+        run: |
+          mkdir dist/.vscode
+          mkdir dist/project_file
+          mv dist/${{ matrix.executable }} dist/.vscode/${{ matrix.executable }}
+          cp vscode-tasks/${{ matrix.tasks }} dist/.vscode/tasks.json
+        shell: bash
+
+      - name: Build ZIP Archive
+        run: ${{ matrix.archive_cmd }}
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: dist/termux_vsbridge-${{ matrix.artifact_name }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Check if tag exists
+        run: |
+          if git rev-parse "${{ github.event.inputs.release_version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ github.event.inputs.release_version }} already exists"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.release_version }}
+          name: Termux VSBridge ${{ github.event.inputs.release_version }}
+          files: |
+            artifacts/vsbridge-windows/termux_vsbridge-windows.zip
+            artifacts/vsbridge-linux/termux_vsbridge-linux.zip
+            artifacts/vsbridge-macos/termux_vsbridge-macos.zip
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
