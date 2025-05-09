@@ -1,7 +1,7 @@
 from . import SSHClient, SFTPClient
 
 class NodeRunner:
-    """Node.js dosyalarını uzak sunucuda çalıştırır, nyaaa~"""
+    """Node Runner"""
     def __init__(self, config_manager):
         self.config_manager = config_manager
         self.ssh_client = SSHClient(
@@ -18,7 +18,7 @@ class NodeRunner:
         )
 
     def run(self, local_file, remote_path):
-        """Node.js dosyasını çalıştırır uwu~"""
+        """Node compile and run"""
         self.sftp_client.push(local_file, remote_path)
         self.ssh_client.connect()
         self.ssh_client.execute(f"npx -y tsx {remote_path}")

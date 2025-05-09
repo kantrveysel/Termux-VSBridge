@@ -1,7 +1,7 @@
 from . import SSHClient, SFTPClient,os
 
 class RustRunner:
-    """Rust dosyalarını uzak sunucuda derler ve çalıştırır."""
+    """Rust Runner"""
     def __init__(self, config_manager):
         self.config_manager = config_manager
         self.ssh_client = SSHClient(
@@ -18,7 +18,7 @@ class RustRunner:
         )
 
     def run(self, local_file, remote_path):
-        """Rust dosyasını derler ve çalıştırır."""
+        """Rust Compile & Run"""
         self.sftp_client.push(local_file, remote_path)
         remote_dir = os.path.dirname(remote_path).replace('\\', '/')
         self.ssh_client.connect()
