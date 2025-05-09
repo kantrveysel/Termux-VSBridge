@@ -13,6 +13,7 @@ class SSHClient:
     def connect(self):
         """Starts SSH Connection"""
         self.client.connect(self.host, port=self.port, username=self.username, password=self.password)
+        return True
 
     def execute(self, command):
         """Executes Command and Prints"""
@@ -23,9 +24,11 @@ class SSHClient:
                 break
             if line:
                 print(line.strip())
+                self._line = line
         self.close()
         return True
 
     def close(self):
         """Cloeses the SSH Connection"""
         self.client.close()
+        return True

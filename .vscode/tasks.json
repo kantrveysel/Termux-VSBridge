@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "termux-vsbridge/run.py",
+        "termux_vsbridge/run.py",
         "-node",
         "${file}"
       ],
@@ -18,7 +18,7 @@
       "type": "shell",
       "command": "python",
       "args": [
-        "termux-vsbridge/run.py",
+        "termux_vsbridge/run.py",
         "-python",
         "${file}"
       ],
