@@ -1,4 +1,4 @@
-from . import SSHClient, SFTPClient
+from . import SSHClient, SFTPClient,os
 
 class RustRunner:
     """Rust dosyalarını uzak sunucuda derler ve çalıştırır."""
