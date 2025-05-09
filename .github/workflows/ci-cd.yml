@@ -10,16 +10,16 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest 
+    runs-on: windows-latest
     environment: test_env
 
     env:
-      MODE: ${{ secrets.MODE }}
+      MODE: ${{ vars.MODE }}
       HOST: ${{ secrets.HOST }}
       PORT: ${{ secrets.PORT }}
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
-      REMOTE_DIR: ${{ secrets.REMOTE_DIR }}
+      REMOTE_DIR: ${{ vars.REMOTE_DIR }}
 
     steps:
     - name: Checkout code

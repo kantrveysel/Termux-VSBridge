@@ -3,7 +3,6 @@ import os,time
 import pytest
 from pathlib import Path
 
-'''
 # Proje kök dizinini sys.path'a ekleyin
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'termux_vsbridge'))
 
@@ -301,5 +300,3 @@ def cleanup_remote_dir():
     finally:
         sftp_client.close()
         transport.close()
-
-'''
