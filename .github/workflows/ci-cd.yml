@@ -11,6 +11,7 @@ on:
 jobs:
   test:
     runs-on: windows-latest 
+    environment: test_env
 
     env:
       MODE: ${{ secrets.MODE }}

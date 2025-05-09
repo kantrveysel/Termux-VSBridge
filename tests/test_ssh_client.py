@@ -11,9 +11,9 @@ def set_environment():
     # Environment variable setup
     os.environ["MODE"] = "TEST"
     host = os.environ["HOST"]
-    port = os.environ["PORT"]  # Corrected: previously using "HOST" for port as well
-    username = os.environ["USERNAME"]  # Corrected: previously using "HOST" for username as well
-    password = os.environ["PASSWORD"]  # Corrected: previously using "HOST" for password as well
+    port = int(os.environ["PORT"] )
+    username = os.environ["USERNAME"] 
+    password = os.environ["PASSWORD"] 
     
     # Initialize SSH client
     ssh_client = SSHClient(host, port, username, password)
