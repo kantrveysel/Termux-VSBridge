@@ -22,20 +22,30 @@ jobs:
             executable: termux_vsbridge.exe
             tasks: tasks-windows.json
             path_separator: \\
-            archive_cmd: powershell -Command "Compress-Archive -Path dist\\.vscode,dist\\project_file -DestinationPath dist\\termux_vsbridge-windows.zip"
+            zip_name: termux_vsbridge-windows.zip
+            archive_cmd: powershell -Command "Compress-Archive -Path dist\\.vscode,dist\\project_file -DestinationPath dist\\$ZIP_NAME"
             artifact_name: vsbridge-windows
           - os: ubuntu-latest
             executable: termux_vsbridge
             tasks: tasks-linux.json
             path_separator: /
-            archive_cmd: zip -r dist/termux_vsbridge-linux.zip dist/.vscode dist/project_file
+            zip_name: termux_vsbridge-linux.zip
+            archive_cmd: zip -r dist/$ZIP_NAME dist/.vscode dist/project_file
             artifact_name: vsbridge-linux
           - os: macos-latest
             executable: termux_vsbridge
             tasks: tasks-macos.json
             path_separator: /
-            archive_cmd: zip -r dist/termux_vsbridge-macos.zip dist/.vscode dist/project_file
+            zip_name: termux_vsbridge-macos.zip
+            archive_cmd: zip -r dist/$ZIP_NAME dist/.vscode dist/project_file
             artifact_name: vsbridge-macos
+
+    env:
+      EXECUTABLE: ${{ matrix.executable }}
+      TASKS: ${{ matrix.tasks }}
+      PATH_SEPARATOR: ${{ matrix.path_separator }}
+      ZIP_NAME: ${{ matrix.zip_name }}
+      ARTIFACT_NAME: ${{ matrix.artifact_name }}
 
     steps:
       - name: Checkout repo
@@ -55,15 +65,15 @@ jobs:
         shell: bash
 
       - name: Build Executable with PyInstaller
-        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge${{ matrix.path_separator }}run.py
+        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge$PATH_SEPARATORrun.py
         shell: bash
 
       - name: Prepare VSCode Folder
         run: |
           mkdir -p dist/.vscode
           mkdir -p dist/project_file
-          mv dist/${{ matrix.executable }} dist/.vscode/${{ matrix.executable }}
-          cp vscode-tasks/${{ matrix.tasks }} dist/.vscode/tasks.json
+          mv dist/$EXECUTABLE dist/.vscode/$EXECUTABLE
+          cp vscode-tasks/$TASKS dist/.vscode/tasks.json
         shell: bash
 
       - name: Build ZIP Archive
@@ -73,8 +83,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}
-          path: dist/termux_vsbridge-${{ matrix.artifact_name }}.zip
+          name: $ARTIFACT_NAME
+          path: dist/$ZIP_NAME
 
   release:
     needs: build
@@ -87,6 +97,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+
+      - name: List downloaded artifacts
+        run: ls -R artifacts
+        shell: bash
 
       - name: Check if tag exists
         run: |
