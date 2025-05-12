@@ -1,0 +1,67 @@
+name: macOS Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version'
+        required: true
+        default: 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Build Binary with PyInstaller
+        run: pyinstaller --onefile --name=termux_vsbridge termux_vsbridge/run.py
+
+      - name: Prepare VSCode Folder
+        run: |
+          mkdir -p dist/.vscode
+          mkdir -p dist/project_file
+          mv dist/termux_vsbridge dist/.vscode/termux_vsbridge
+          cp vscode-tasks/tasks-macos.json dist/.vscode/tasks.json
+
+      - name: Build ZIP Archive
+        run: zip -r dist/termux_vsbridge.zip dist/.vscode
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vsbridge-macos
+          path: dist/termux_vsbridge.zip
+
+      - name: Check if tag exists
+        run: |
+          if git rev-parse "${{ github.event.inputs.release_version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ github.event.inputs.release_version }} already exists"
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.release_version }}
+          name: Termux VSBridge - macOS ${{ github.event.inputs.release_version }}
+          files: dist/termux_vsbridge.zip
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
