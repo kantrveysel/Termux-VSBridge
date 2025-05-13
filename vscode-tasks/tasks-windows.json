@@ -98,6 +98,28 @@
         }
       },
       "group": "build"
+    },
+    {
+      "label": "Run Shell on Termux",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\termux_vsbridge.exe",
+      "args": [
+        "-shell",
+        "${file}"
+      ],
+      "problemMatcher": {
+        "owner": "shell",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
     }
   ]
 }

@@ -9,6 +9,7 @@ from termux_vsbridge.runners.cpp_runner import CppRunner
 from termux_vsbridge.runners.java_runner import JavaRunner
 from termux_vsbridge.runners.rust_runner import RustRunner
 from termux_vsbridge.runners.node_runner import NodeRunner
+from termux_vsbridge.runners.shell_runner import ShellRunner
 
 class Toolchain:
     """Toolchain Manager"""
@@ -30,7 +31,8 @@ class Toolchain:
             "-python": PythonRunner,
             "-cpp": CppRunner,
             "-java": JavaRunner,
-            "-rust": RustRunner
+            "-rust": RustRunner,
+            "-shell": ShellRunner
         }
         runner_class = runners.get(mode)
         if not runner_class:

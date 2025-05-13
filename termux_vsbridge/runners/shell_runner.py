@@ -1,7 +1,7 @@
 from . import SSHClient, SFTPClient
 
-class PythonRunner:
-    """Python Runner"""
+class ShellRunner:
+    """Shell Runner"""
     def __init__(self, config_manager):
         self.config_manager = config_manager
         self.ssh_client = SSHClient(
@@ -18,7 +18,7 @@ class PythonRunner:
         )
 
     def run(self, local_file, remote_path):
-        """Executes python project"""
+        """Executes Shell Files"""
         self.sftp_client.push(local_file, remote_path)
         self.ssh_client.connect()
-        self.ssh_client.execute(f"python -u {remote_path}")
+        self.ssh_client.execute(f"chmod +x {remote_path} && bash {remote_path}")
