@@ -40,7 +40,7 @@ To start contributing, follow these steps:
      sshd
      ```
    - **VS Code**: Install VS Code with task runner support (no additional extensions needed).
-   - **Configuration**: Edit `remote_toolchain/config.json` with your Termux SSH credentials:
+   - **Configuration**: Edit `.vscode/config.json` with your Termux SSH credentials:
      ```json
      {
        "host": "localhost",
@@ -54,11 +54,11 @@ To start contributing, follow these steps:
 4. **Test Your Setup**:
    - Run a sample project:
      ```bash
-     python remote_toolchain/run.py -python test_project/test_script.py
+     python termux_vsbridge/run.py -python test_project/test_script.py
      ```
    - Run the unit tests to ensure everything works:
      ```bash
-     python remote_toolchain/tests/test_runner.py
+     python ./tests/test_runner.py
      ```
 
 ---
@@ -120,7 +120,7 @@ To add a new test:
 2. Ensure the test is modular (e.g., uses helper modules or classes).
 3. Run the test suite to verify:
    ```bash
-   python remote_toolchain/tests/test_runner.py
+   python termux_vsbridge/tests/test_runner.py
    ```
 
 ---
@@ -136,7 +136,7 @@ Termux-VSBridge can be compiled into a single executable using PyInstaller, elim
 
 2. Compile the project:
    ```bash
-   pyinstaller --onefile --name Termux-VSBridge remote_toolchain/run.py
+   pyinstaller --onefile --name Termux-VSBridge termux_vsbridge/run.py
    ```
 
 3. Test the binary:

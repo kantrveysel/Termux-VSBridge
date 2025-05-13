@@ -53,7 +53,7 @@
    ```
 
 4. **Configure SSH**:
-   - Edit `remote_toolchain/config.json` with your Termux SSH details:
+   - Edit `.vscode/config.json` with your Termux SSH details:
      ```json
      {
        "host": "localhost",
@@ -67,7 +67,8 @@
 ### Using the Compiled Binary
 To avoid installing Python and dependencies, download the precompiled `Termux-VSBridge` binary from the [Releases](https://github.com/kantrveysel/Termux-VSBridge/releases) page and run it directly:
 ```bash
-./Termux-VSBridge -python test_project/test_script.py
+./termux_vsbridge -python test_project/test_script.py
+termux_vsbridge.exe -python test_project/test_script.py
 ```
 
 ---
@@ -86,23 +87,23 @@ To avoid installing Python and dependencies, download the precompiled `Termux-VS
 Alternatively, use the command line:
 - **Python**:
   ```bash
-  python remote_toolchain/run.py -python test_project/test_script.py
+  python termux_vsbridge/run.py -python test_project/test_script.py
   ```
 - **C++**:
   ```bash
-  python remote_toolchain/run.py -cpp test_project/test.cpp
+  python termux_vsbridge/run.py -cpp test_project/test.cpp
   ```
 - **Java**:
   ```bash
-  python remote_toolchain/run.py -java test_project/test.java
+  python termux_vsbridge/run.py -java test_project/test.java
   ```
 - **Rust**:
   ```bash
-  python remote_toolchain/run.py -rust test_project/test.rs
+  python termux_vsbridge/run.py -rust test_project/test.rs
   ```
 - **NodeJS**:
   ```bash
-  python remote_toolchain/run.py -node test_node/test.js
+  python termux_vsbridge/run.py -node test_node/test.js
   ```
 
 ---
@@ -112,21 +113,19 @@ Alternatively, use the command line:
 
 ```
 Termux-VSBridge/
-├── remote_toolchain/
-│   ├── runners/
-│   ├── tests/
-├── test_project/
-│   ├── core/
-├── tests/
-│   ├── test_cpp/
-│   ├── test_python/
-│   ├── test_java/
-│   ├── test_rust/
-│   ├── test_node/
-├── .vscode/
-│   ├── tasks.json
-├── README.md
-├── LICENSE
+├───.github
+│   └───workflows
+├───.vscode
+├───example_project
+│   ├───test_cpp
+│   ├───test_node
+│   └───test_python
+│       ├───core
+├───termux_vsbridge
+│   ├───core
+│   ├───runners
+├───tests
+└───vscode-tasks
 ```
 
 ---
