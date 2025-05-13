@@ -13,7 +13,6 @@
 - **Real-Time Output**: Stream output from Termux to VS Code with `python -u` and optimized SSH handling.
 - **Modular Test Suite**: Comprehensive unit tests for validating project functionality across languages.
 - **VS Code Integration**: Seamless tasks for running and debugging projects.
-- **Efficient File Transfer**: Transfers only relevant files (`.py`, `.cpp`, `.java`, `.rs`, `Makefile`, `CMakeLists.txt`, etc.).
 - **Cross-Platform**: Works on Windows, Linux, and macOS, with Termux as the runtime environment.
 - **Compiled Binary**: Optional single-file executable with PyInstaller, eliminating Python dependency.
 
@@ -105,6 +104,10 @@ Alternatively, use the command line:
   ```bash
   python termux_vsbridge/run.py -node test_node/test.js
   ```
+- **Shell**:
+  ```bash
+  python termux_vsbridge/run.py -shell test_shell/test_shell.sh
+  ```
 
 ---
 
@@ -119,6 +122,7 @@ Termux-VSBridge/
 ├───example_project
 │   ├───test_cpp
 │   ├───test_node
+│   ├───test_shell
 │   └───test_python
 │       ├───core
 ├───termux_vsbridge
