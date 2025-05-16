@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/github/forks/kantrveysel/Termux-VSBridge?style=social" alt="Forks" />
   <img src="https://img.shields.io/github/stars/kantrveysel/Termux-VSBridge?style=social" alt="Stars" />
   <img src="https://img.shields.io/github/license/kantrveysel/Termux-VSBridge" alt="License" />
-  <img src="https://img.shields.io/github/last-commit/kantrveysel/Termux-VSBridge" alt="Last Commit" />
+  <img src="https://img.shields.io/github/last-commit/kantrveysel/Termux-VSBridge" alt="Last Commit" /><img src="https://img.shields.io/github/release/kantrveysel/Termux-VSBridge.svg" alt="Latest Release" />
 </p>
 
 ---
