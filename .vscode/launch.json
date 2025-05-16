@@ -1,0 +1,87 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Termux: Run",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": [
+        "${input:languageFlag}",
+        "${file}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run Node.js",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-node", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run Python",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-python", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run C++",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-cpp", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run Java",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-java", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run Rust",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-rust", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Termux: Run Shell",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/termux_vsbridge/run.py",
+      "args": ["-shell", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "languageFlag",
+      "type": "pickString",
+      "description": "Select Termux runner",
+      "options": [
+        "-node",
+        "-python",
+        "-cpp",
+        "-java",
+        "-rust",
+        "-shell"
+      ],
+      "default": "-python"
+    }
+  ]
+}
