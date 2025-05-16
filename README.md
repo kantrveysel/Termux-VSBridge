@@ -4,6 +4,14 @@
 
 [![Image](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWJtZW8xcnNobmFiajFxbmNkb25wZWI1NnZwcWcydTZrZ2RxNDJ5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0qbToCHrf76lzOnXvn/giphy.gif)](https://i.hizliresim.com/oar7wpr.gif)
 
+---
+
+![GitHub repo size](https://img.shields.io/github/repo-size/kantrveysel/Termux-VSBridge)
+![GitHub issues](https://img.shields.io/github/issues/kantrveysel/Termux-VSBridge)
+![GitHub forks](https://img.shields.io/github/forks/kantrveysel/Termux-VSBridge?style=social)
+![GitHub stars](https://img.shields.io/github/stars/kantrveysel/Termux-VSBridge?style=social)
+![GitHub license](https://img.shields.io/github/license/kantrveysel/Termux-VSBridge)
+![GitHub last commit](https://img.shields.io/github/last-commit/kantrveysel/Termux-VSBridge)
 
 ---
 
