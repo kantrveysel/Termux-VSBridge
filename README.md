@@ -6,12 +6,14 @@
 
 ---
 
-![GitHub repo size](https://img.shields.io/github/repo-size/kantrveysel/Termux-VSBridge)
-![GitHub issues](https://img.shields.io/github/issues/kantrveysel/Termux-VSBridge)
-![GitHub forks](https://img.shields.io/github/forks/kantrveysel/Termux-VSBridge?style=social)
-![GitHub stars](https://img.shields.io/github/stars/kantrveysel/Termux-VSBridge?style=social)
-![GitHub license](https://img.shields.io/github/license/kantrveysel/Termux-VSBridge)
-![GitHub last commit](https://img.shields.io/github/last-commit/kantrveysel/Termux-VSBridge)
+<p align="center">
+  <img src="https://img.shields.io/github/repo-size/kantrveysel/Termux-VSBridge" alt="Repo Size" />
+  <img src="https://img.shields.io/github/issues/kantrveysel/Termux-VSBridge" alt="Issues" />
+  <img src="https://img.shields.io/github/forks/kantrveysel/Termux-VSBridge?style=social" alt="Forks" />
+  <img src="https://img.shields.io/github/stars/kantrveysel/Termux-VSBridge?style=social" alt="Stars" />
+  <img src="https://img.shields.io/github/license/kantrveysel/Termux-VSBridge" alt="License" />
+  <img src="https://img.shields.io/github/last-commit/kantrveysel/Termux-VSBridge" alt="Last Commit" />
+</p>
 
 ---
 
