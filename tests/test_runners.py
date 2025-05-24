@@ -292,7 +292,6 @@ def cleanup_remote_dir():
     remote_dir = os.environ["REMOTE_DIR"]
 
     try:
-        # Dizini ve içeriğini temizle
         recursive_remove(sftp_client, remote_dir)
 
     except Exception as e:
